@@ -7,6 +7,8 @@ package finalproject;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
+import javax.swing.table.DefaultTableModel;
+
 
 
 
@@ -295,5 +297,26 @@ public class OverviewPanel extends JPanel {
         return p;
     }
 }
+
+public class RankingsPanel extends JPanel {
+
+    private JTable rankTable;
+
+    public RankingsPanel() {
+        setLayout(new BorderLayout());
+        setBackground(Color.white);
+
+        JLabel title = new JLabel("Classroom Rankings", SwingConstants.CENTER);
+        title.setFont(new Font("Segoe UI", Font.BOLD, 26));
+        add(title, BorderLayout.NORTH);
+
+        String[] cols = {"Room", "Score"};
+        rankTable = new JTable(new DefaultTableModel(cols, 0));
+        rankTable.setRowHeight(28);
+
+        add(new JScrollPane(rankTable), BorderLayout.CENTER);
+    }
+}
+
 
 
