@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
+
 public class EcoTracker {
     public static void main(String[] args) {
         try { 
@@ -92,3 +93,92 @@ public class LoginFrame extends JFrame {
         new DashboardFrame(user);
     }
 }
+
+public class SignupFrame extends JFrame {
+
+    private JTextField userField;
+    private JPasswordField passField;
+    private JPasswordField confirmField;
+
+    public SignupFrame() {
+        setTitle("Create Account");
+        setSize(380, 500);
+        setLocationRelativeTo(null);
+        setResizable(false);
+
+        JPanel panel = new JPanel(null);
+
+        JLabel title = new JLabel("Create Account");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        title.setBounds(90, 20, 300, 40);
+        panel.add(title);
+
+        JLabel u = new JLabel("Username:");
+        u.setBounds(50, 90, 260, 20);
+        panel.add(u);
+
+        userField = new JTextField();
+        userField.setBounds(50, 115, 260, 35);
+        panel.add(userField);
+
+        JLabel p = new JLabel("Password:");
+        p.setBounds(50, 165, 260, 20);
+        panel.add(p);
+
+        passField = new JPasswordField();
+        passField.setBounds(50, 190, 260, 35);
+        panel.add(passField);
+
+        JLabel c = new JLabel("Confirm Password:");
+        c.setBounds(50, 240, 260, 20);
+        panel.add(c);
+
+        confirmField = new JPasswordField();
+        confirmField.setBounds(50, 265, 260, 35);
+        panel.add(confirmField);
+
+        JButton createBtn = new JButton("Create Account");
+        createBtn.setBounds(50, 330, 260, 40);
+        createBtn.addActionListener(e -> handleSignup());
+        panel.add(createBtn);
+
+        JButton backBtn = new JButton("Back");
+        backBtn.setBounds(50, 380, 260, 40);
+        backBtn.addActionListener(e -> {
+            dispose();
+            new LoginFrame();
+        });
+        panel.add(backBtn);
+
+        add(panel);
+        setVisible(true);
+    }
+
+    private void handleSignup() {
+        String u = userField.getText();
+        String p = String.valueOf(passField.getPassword());
+        String cp = String.valueOf(confirmField.getPassword());
+
+        if (u.isEmpty() || p.isEmpty() || cp.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Fill all fields.");
+            return;
+        }
+
+        if (LoginFrame.accounts.containsKey(u)) {
+            JOptionPane.showMessageDialog(this, "Username already exists.");
+            return;
+        }
+
+        if (!p.equals(cp)) {
+            JOptionPane.showMessageDialog(this, "Passwords do not match.");
+            return;
+        }
+
+        LoginFrame.accounts.put(u, p);
+        JOptionPane.showMessageDialog(this, "Account created!");
+
+        dispose();
+        new LoginFrame();
+    }
+}
+
