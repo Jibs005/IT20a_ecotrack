@@ -12,12 +12,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.*;
 
-
-
-
-
-
-
 public class EcoTracker {
     public static void main(String[] args) {
         try { 
@@ -393,6 +387,34 @@ public class RoundedPanel extends JPanel {
         g.fillRoundRect(0, 0, d.width, d.height, radius, radius);
     }
 }
+
+public class UIUtils {
+
+    public static JButton smallFlatButton(String text) {
+        JButton b = new JButton(text);
+        b.setFocusPainted(false);
+        b.setBackground(new Color(80, 80, 80));
+        b.setForeground(Color.white);
+        b.setBorder(BorderFactory.createEmptyBorder(8, 12, 8, 12));
+        return b;
+    }
+
+    public static JButton smallIconButton(Icon icon) {
+        JButton b = new JButton(icon);
+        b.setFocusPainted(false);
+        b.setBorder(null);
+        b.setContentAreaFilled(false);
+        return b;
+    }
+
+    public static JComboBox<String> styledCombo(String... items) {
+        JComboBox<String> combo = new JComboBox<>(items);
+        combo.setBackground(Color.white);
+        combo.setFocusable(false);
+        return combo;
+    }
+}
+
 
 
 
