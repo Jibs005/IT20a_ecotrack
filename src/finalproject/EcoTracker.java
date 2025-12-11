@@ -9,6 +9,7 @@ import java.awt.*;
 import java.util.HashMap;
 
 
+
 public class EcoTracker {
     public static void main(String[] args) {
         try { 
@@ -179,6 +180,79 @@ public class SignupFrame extends JFrame {
 
         dispose();
         new LoginFrame();
+    }
+}
+
+public class DashboardFrame extends JFrame {
+
+    private CardLayout cardLayout;
+    private JPanel cardPanel;
+
+    private OverviewPanel overviewPanel;
+    private RankingsPanel rankingsPanel;
+    private LogsPanel logsPanel;
+
+    public static HashMap<String, ClassroomData> currentData = new HashMap<>();
+
+    public DashboardFrame(String loggedInUser) {
+        setTitle("EcoTracker Dashboard");
+        setSize(1000, 650);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
+
+        // LEFT NAVIGATION
+        JPanel nav = new JPanel();
+        nav.setLayout(new GridLayout(6, 1));
+        nav.setBackground(new Color(40, 40, 40));
+        nav.setPreferredSize(new Dimension(180, 0));
+
+        JButton btnOverview = navButton("Overview");
+        JButton btnRankings = navButton("Rankings");
+        JButton btnLogs = navButton("Logs");
+        JButton btnLogout = navButton("Logout");
+
+        nav.add(btnOverview);
+        nav.add(btnRankings);
+        nav.add(btnLogs);
+        nav.add(new JLabel()); // spacer
+        nav.add(btnLogout);
+
+        add(nav, BorderLayout.WEST);
+
+        // CENTER CARD PANEL
+        cardLayout = new CardLayout();
+        cardPanel = new JPanel(cardLayout);
+
+        overviewPanel = new OverviewPanel();
+        rankingsPanel = new RankingsPanel();
+        logsPanel = new LogsPanel();
+
+        cardPanel.add(overviewPanel, "overview");
+        cardPanel.add(rankingsPanel, "rankings");
+        cardPanel.add(logsPanel, "logs");
+
+        add(cardPanel, BorderLayout.CENTER);
+
+        // ACTIONS
+        btnOverview.addActionListener(e -> cardLayout.show(cardPanel, "overview"));
+        btnRankings.addActionListener(e -> cardLayout.show(cardPanel, "rankings"));
+        btnLogs.addActionListener(e -> cardLayout.show(cardPanel, "logs"));
+        btnLogout.addActionListener(e -> {
+            dispose();
+            new LoginFrame();
+        });
+
+        setVisible(true);
+    }
+
+    private JButton navButton(String text) {
+        JButton b = new JButton(text);
+        b.setFocusPainted(false);
+        b.setBackground(new Color(60, 60, 60));
+        b.setForeground(Color.white);
+        b.setBorderPainted(false);
+        return b;
     }
 }
 
