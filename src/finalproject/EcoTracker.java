@@ -8,6 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.*;
 
 
 
@@ -315,6 +318,47 @@ public class RankingsPanel extends JPanel {
         rankTable.setRowHeight(28);
 
         add(new JScrollPane(rankTable), BorderLayout.CENTER);
+    }
+}
+
+public class LogsPanel extends JPanel {
+
+    private JTable logsTable;
+    private JTextField searchField;
+
+    public LogsPanel() {
+        setLayout(new BorderLayout());
+        setBackground(Color.white);
+
+        JLabel title = new JLabel("Logs", SwingConstants.CENTER);
+        title.setFont(new Font("Segoe UI", Font.BOLD, 26));
+        add(title, BorderLayout.NORTH);
+
+        searchField = new JTextField();
+        searchField.setPreferredSize(new Dimension(200, 35));
+
+        JPanel searchPanel = new JPanel();
+        searchPanel.add(new JLabel("Search: "));
+        searchPanel.add(searchField);
+        add(searchPanel, BorderLayout.NORTH);
+
+        String[] cols = {"Room", "Score", "Timestamp"};
+        logsTable = new JTable(new DefaultTableModel(cols, 0));
+        logsTable.setRowHeight(28);
+
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(logsTable.getModel());
+        logsTable.setRowSorter(sorter);
+
+        searchField.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent e) { filter(); }
+            public void removeUpdate(DocumentEvent e) { filter(); }
+            public void changedUpdate(DocumentEvent e) {}
+            void filter() {
+                sorter.setRowFilter(RowFilter.regexFilter(searchField.getText()));
+            }
+        });
+
+        add(new JScrollPane(logsTable), BorderLayout.CENTER);
     }
 }
 
