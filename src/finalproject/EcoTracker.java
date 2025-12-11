@@ -16,6 +16,8 @@ import javax.swing.table.*;
 
 
 
+
+
 public class EcoTracker {
     public static void main(String[] args) {
         try { 
@@ -371,6 +373,24 @@ public class ClassroomData {
         this.room = room;
         this.score = score;
         this.timestamp = timestamp;
+    }
+}
+
+public class RoundedPanel extends JPanel {
+
+    private int radius;
+
+    public RoundedPanel(int radius) {
+        this.radius = radius;
+        setOpaque(false);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Dimension d = getSize();
+        g.setColor(getBackground());
+        g.fillRoundRect(0, 0, d.width, d.height, radius, radius);
     }
 }
 
