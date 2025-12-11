@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 
 
+
 public class EcoTracker {
     public static void main(String[] args) {
         try { 
@@ -255,4 +256,44 @@ public class DashboardFrame extends JFrame {
         return b;
     }
 }
+
+public class OverviewPanel extends JPanel {
+
+    public OverviewPanel() {
+        setLayout(new BorderLayout());
+        setBackground(Color.white);
+
+        JLabel title = new JLabel("Overview", SwingConstants.CENTER);
+        title.setFont(new Font("Segoe UI", Font.BOLD, 26));
+        add(title, BorderLayout.NORTH);
+
+        JPanel cards = new JPanel(new GridLayout(1, 4, 20, 20));
+        cards.setBorder(new EmptyBorder(40, 40, 40, 40));
+        cards.setBackground(Color.white);
+
+        cards.add(summaryCard("Total Entries", "0"));
+        cards.add(summaryCard("Highest Score", "0"));
+        cards.add(summaryCard("Lowest Score", "0"));
+        cards.add(summaryCard("Average", "0"));
+
+        add(cards, BorderLayout.CENTER);
+    }
+
+    private JPanel summaryCard(String label, String val) {
+        JPanel p = new JPanel(new BorderLayout());
+        p.setBackground(new Color(240, 240, 240));
+        p.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        JLabel l = new JLabel(label);
+        l.setFont(new Font("Arial", Font.BOLD, 16));
+
+        JLabel v = new JLabel(val, SwingConstants.CENTER);
+        v.setFont(new Font("Arial", Font.BOLD, 30));
+
+        p.add(l, BorderLayout.NORTH);
+        p.add(v, BorderLayout.CENTER);
+        return p;
+    }
+}
+
 
