@@ -362,5 +362,18 @@ public class LogsPanel extends JPanel {
     }
 }
 
+public class ClassroomData {
+    public String room;
+    public int score;
+    public String timestamp;
+
+    public ClassroomData(String room, int score, String timestamp) {
+        this.room = room;
+        this.score = score;
+        this.timestamp = timestamp;
+    }
+}
+
+
 
 
