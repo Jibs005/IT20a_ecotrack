@@ -648,10 +648,11 @@ class EcoDashboard extends JFrame {
                 Collections.singletonList(new RowSorter.SortKey(1, SortOrder.DESCENDING))
         ));
 
-        rightSorts.add(dateNewest);
-        rightSorts.add(dateOldest);
         rightSorts.add(userAsc);
         rightSorts.add(userDesc);
+        rightSorts.add(dateNewest);
+        rightSorts.add(dateOldest);
+       
 
         topControls.add(rightSorts, BorderLayout.EAST);
         body.add(topControls, BorderLayout.NORTH);
@@ -707,15 +708,7 @@ class EcoDashboard extends JFrame {
         ));
         combo.setFont(new Font("Segoe UI", Font.PLAIN, 13));
     }
-    private JButton smallFlatButton(String text) {
-        JButton b = new JButton(text);
-        b.setBackground(new Color(0,0,0,0));
-        b.setForeground(Color.WHITE);
-        b.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        b.setFocusPainted(false);
-        b.setBorder(BorderFactory.createEmptyBorder(6,10,6,10));
-        return b;
-    }
+    
     private JButton smallIconButton(String text) {
         JButton b = new JButton(text);
         b.setMargin(new Insets(2, 6, 2, 6));
@@ -724,6 +717,15 @@ class EcoDashboard extends JFrame {
         b.setFocusPainted(false);
         b.setBorder(BorderFactory.createLineBorder(new Color(220,220,220)));
         b.addActionListener(e -> logAction("Clicked control " + text));
+        return b;
+    }
+    private JButton smallFlatButton(String text) {
+        JButton b = new JButton(text);
+        b.setBackground(new Color(0,0,0,0));
+        b.setForeground(Color.WHITE);
+        b.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        b.setFocusPainted(false);
+        b.setBorder(BorderFactory.createEmptyBorder(6,10,6,10));
         return b;
     }
     private JButton smallPrimaryButton(String text) {
@@ -817,7 +819,7 @@ class EcoDashboard extends JFrame {
             logSorter.setRowFilter(or);
         }
     }
-
+    // Classroom data Area
     static class ClassroomData {
         String id;
         int electricity;
